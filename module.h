@@ -23,3 +23,7 @@ int listLength(List l);
 List newList();
 List SuppCellule(List li, Cellule_t* cell);
 List ChangeDate(List li, int date, int newDate);
+void sauvegarde(List li);
+List chargeList(List li);
+List *rechercherElt(List *liste, int date);
+void ajoutListe(List *liste, Cellule_t *elt);
