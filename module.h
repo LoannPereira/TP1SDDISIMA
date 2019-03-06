@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef enum{
     true,
@@ -15,15 +16,17 @@ typedef struct maillon {
 
 
 Cellule_t* creationCellule(int deb, int fin, char *texte);
-Cellule_t* recherchePrec(Cellule_t *ptdeb, int date);
-List insertion(Cellule_t *ptdeb, Cellule_t* cell);
+Cellule_t* recherchePrec(Cellule_t *ptdeb, int date);//old
 void affichage(List l);
 Bool isEmptyList(List l);
 int listLength(List l);
-List newList();
 List SuppCellule(List li, Cellule_t* cell);
 List ChangeDate(List li, int date, int newDate);
 void sauvegarde(List li);
 List chargeList(List li);
 List *rechercherElt(List *liste, int date);
 void ajoutListe(List *liste, Cellule_t *elt);
+int getDate(void);
+void affichageDateDuJour(List l);
+Bool compare(char *s1,char *s2);
+void rechercheMotif(List li, char* motif);

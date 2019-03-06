@@ -1,4 +1,6 @@
-4 5 C3
-94 9 C2
-33 39 C5
-45 98 C4
+20180823 20180923 ceci est un beau texte
+20180517 20180617 oui ça ve très bien et toi ?
+20190106 20190206 tu vas bien ?
+20170403 20170703 ok c'est cool
+20190306 20190407 tu fais quoi aujourd'hui ?
+20190223 20190402 Je fais un gâteau

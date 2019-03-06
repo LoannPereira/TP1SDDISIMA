@@ -1,34 +1,5 @@
 #include "module.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
-int main(void){
-    List li = NULL;
-    time_t t = time(NULL);
-    
-    printf("%s\n", ctime(&t));
-//    Cellule_t *c1 = creationCellule(1, 2, "C1");
-//    Cellule_t *c2 = creationCellule(6, 9, "C2");
-//    Cellule_t *c3 = creationCellule(4, 5, "C3");
-//    Cellule_t *c4 = creationCellule(45, 98, "C4");
-//    Cellule_t *c5 = creationCellule(33, 39, "C5");
-   li= chargeList(li);
-//    li = insertion(li, c1);
-//    li = insertion(li, c2);
-//    li = insertion(li, c3);
-//    li = insertion(li, c4);
-//    li = insertion(li, c5);
-    affichage(li);
-//    printf("----------------\n");
-////    li = SuppCellule(li, c1);
-//    affichage(li);
-//    printf("----------------\n");
-//    li=ChangeDate(li, 6, 94);
-//    affichage(li);
-//    sauvegarde(li);
-
-}
 
 List chargeList(List li){
     FILE *flot;
@@ -49,14 +20,11 @@ List chargeList(List li){
             printf("Erreur lors de l'allocation mémoire !\n");
             exit(0);
         }
-
         mess->deb = deb;
         mess->fin = fin;
         strcpy(mess->texte, texte);
         mess->suiv = NULL;
-        
-        /* Ajout de l'élément dans la liste */
-        //li=insertion(li, mess);
+
         ajoutListe(&li, mess);
         fscanf(flot, "%d %d%*c", &deb, &fin);
         fgets(texte, 100, flot);
@@ -80,26 +48,6 @@ Cellule_t* creationCellule(int deb, int fin, char *texte){
     return nouv;
 }
 
-
-
-List insertion(List li, Cellule_t* cell){
-    Cellule_t *cellPrec;
-    if(li==NULL){
-        return cell;
-    }
-    else {
-        cellPrec= recherchePrec(li, cell->deb);
-        if(cellPrec==NULL){
-            cell->suiv=li;
-            li=cell;
-        }
-        else{
-            cell->suiv=cellPrec->suiv;
-            cellPrec->suiv=cell;
-        }
-        return li;
-    }
-}
 
 void ajoutListe(List *liste, Cellule_t *elt)
 {
@@ -136,13 +84,31 @@ void affichage(List l){
 	int i=0;
     if(l!=NULL){
         while(l != NULL){
-            printf("%d: deb=%d fin=%d texte: %s\n",i, l->deb, l->fin, l->texte);
+            printf("%d: deb=%d fin=%d texte: %s\n",i+1, l->deb, l->fin, l->texte);
             l = l->suiv;
             i++;
         }
     }
     else{
         printf("La liste est vide\t RIEN A AFFICHER!!\n");
+    }
+}
+int getDate(void){
+    time_t t = time(NULL);
+    struct tm temps = *localtime(&t);
+    return (temps.tm_year + 1900) * 10000 + (temps.tm_mon + 1) * 100 + temps.tm_mday;
+}
+
+void affichageDateDuJour(List l){
+    List tmp=l;
+    if(tmp!=NULL){
+        printf("Message(s) NON expiré(s):\n");
+        while(tmp != NULL){
+            if(tmp->fin>=getDate()){
+                printf("Date d'émission: %d \t Message: %s\n",tmp->deb,tmp->texte);
+            }
+            tmp = tmp->suiv;
+        }
     }
 }
 
@@ -202,6 +168,38 @@ void sauvegarde(List li){
         }
         fclose(monfic);
     }
+}
+
+void rechercheMotif(List li, char* motif){
+    List tmp = li;
+    if(tmp!=NULL){
+        printf("Message contenant: %s:\n",motif);
+        while(tmp!=NULL){
+            if(compare(tmp->texte, motif)==true){
+                printf("Date d'émission: %d  Date d'expiration: %d  Message:%s\n",tmp->deb,tmp->fin,tmp->texte);
+            }
+            tmp=tmp->suiv;
+        }
+    }
+}
+
+Bool compare(char *s1,char *s2){
+    int i =0;
+    int j=0;
+    Bool contient =false;
+    Bool stop=false;
+    while(s1[i]!='\0'&&stop==false){
+        if(s1[i]==s2[j]){
+            if(s2[j+1]=='\0'){
+                contient=true;
+                stop=true;
+            }
+            if(s1[i+1]!=s2[j+1]) j=0;
+            else j++;
+        }
+        i++;
+    }
+    return contient;
 }
 
 
