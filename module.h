@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <time.h>
+
+#define FICHIER "/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/sauve.txt"
 
 typedef enum{
     true,
@@ -15,18 +18,17 @@ typedef struct maillon {
 } Cellule_t, *List;
 
 
-Cellule_t* creationCellule(int deb, int fin, char *texte);
-Cellule_t* recherchePrec(Cellule_t *ptdeb, int date);//old
-void affichage(List l);
-Bool isEmptyList(List l);
-int listLength(List l);
-List SuppCellule(List li, Cellule_t* cell);
-List ChangeDate(List li, int date, int newDate);
-void sauvegarde(List li);
+
 List chargeList(List li);
-List *rechercherElt(List *liste, int date);
+Cellule_t* creationCellule(int deb, int fin, char *texte);
 void ajoutListe(List *liste, Cellule_t *elt);
+List *rechercherElt(List *liste, int date);
+void affichage(List l);// pour le débuggage
 int getDate(void);
 void affichageDateDuJour(List l);
-Bool compare(char *s1,char *s2);
+void SuppMessage(List *li);
+void suppCell(List* li, Cellule_t* cell);
+void ChangeDate(List *li, int date, int newDate);
+void sauvegarde(List li);
 void rechercheMotif(List li, char* motif);
+Bool compare(char *s1,char *s2);

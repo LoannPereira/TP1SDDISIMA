@@ -1,12 +1,11 @@
 #include "module.h"
 
-
 List chargeList(List li){
     FILE *flot;
     int deb, fin;
     Cellule_t *mess;
     char texte[100];
-    flot = fopen("/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/sauve.txt", "r");
+    flot = fopen(FICHIER, "r");
     if (!flot){
         printf("Erreur lors de l'ouverture du fichier\n");
         exit(1);
@@ -57,13 +56,6 @@ void ajoutListe(List *liste, Cellule_t *elt)
 
 }
 
-Cellule_t* recherchePrec(List li, int date){
-    Cellule_t *pre=li;
-    while(pre->suiv != NULL && pre->suiv->deb<date){
-        pre = pre->suiv;
-    }
-    return pre;
-}
 
 List *rechercherElt(List *liste, int date)
 {
@@ -81,18 +73,20 @@ List *rechercherElt(List *liste, int date)
 
 
 void affichage(List l){
-	int i=0;
+	int i=1;
     if(l!=NULL){
         while(l != NULL){
-            printf("%d: deb=%d fin=%d texte: %s\n",i+1, l->deb, l->fin, l->texte);
+            printf("%d %d  %s\n", l->deb, l->fin, l->texte);
             l = l->suiv;
             i++;
         }
+        printf("%d\n",i);
     }
     else{
         printf("La liste est vide\t RIEN A AFFICHER!!\n");
     }
 }
+
 int getDate(void){
     time_t t = time(NULL);
     struct tm temps = *localtime(&t);
@@ -112,51 +106,48 @@ void affichageDateDuJour(List l){
     }
 }
 
-List SuppCellule(List li, Cellule_t* cell){
-    Cellule_t* cellPrec;
-    if(li==NULL)printf("La liste est vide  !!\n");
-    else{
-        if(li->suiv==NULL){
-            free(li);
+void SuppMessage(List *li){
+    List curr = *li;
+    List *tmp=li;
+    while(curr!=NULL){
+        if(curr->fin<getDate()){
+            suppCell(tmp,curr);
         }
-        else{
-            if(li==cell){
-                li=cell->suiv;
-                free(cell);
-            }
-            else{
-                if(li->suiv!= NULL){
-                    cellPrec=recherchePrec(li, cell->deb);
-                    cellPrec->suiv=cell->suiv;
-                    free(cell);
-                }
-                else{
-                    printf("Cellule introuvée pour la suppression :/\n");
-                }
-            }
-        }
+        else tmp=&(curr->suiv);
+        curr=curr->suiv;
     }
-    return li;
+    
 }
 
-List ChangeDate(List li, int date, int newDate){
-    List tmp = li;
-    if(li==NULL){
+void suppCell(List* li, Cellule_t* cell){
+    *li=cell->suiv;
+    free(cell);
+}
+
+void ChangeDate(List *li, int date, int newDate){
+    List* tmp=li;
+    List curr=*li;
+    if(*li==NULL){
         printf("La liste est vide, modification impossible\n");
     }
     else{
-        while(tmp->suiv!=NULL){
-            if(tmp->deb==date) tmp->deb=newDate;
-            tmp=tmp->suiv;
+        while(curr!=NULL){
+            if(curr->deb==date){
+                curr->deb=newDate;
+                curr->fin=newDate+100;//Ajout du mois en plus
+                *tmp=curr->suiv;// on saute la cellule
+                ajoutListe(li, curr);// on le "ré-insère" dans la liste au bon endroit
+            }
+            else tmp=&(curr->suiv);
+            curr=*tmp;//le courrant pointe sur la cellule suivante (correspondant au suiv du tmp)
         }
     }
-    return li;
 }
 
 void sauvegarde(List li){
     List tmp = li;
     FILE* monfic = NULL;
-    monfic = fopen("/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/sauve.txt", "w");
+    monfic = fopen(FICHIER, "w");
     if(monfic==NULL){
         printf("\n!!!!!problème d'ouverture du fichier!!!!!\n\n");
         exit(1);
@@ -184,10 +175,8 @@ void rechercheMotif(List li, char* motif){
 }
 
 Bool compare(char *s1,char *s2){
-    int i =0;
-    int j=0;
-    Bool contient =false;
-    Bool stop=false;
+    int i=0,j=0;
+    Bool contient=false, stop=false;
     while(s1[i]!='\0'&&stop==false){
         if(s1[i]==s2[j]){
             if(s2[j+1]=='\0'){
@@ -200,27 +189,4 @@ Bool compare(char *s1,char *s2){
         i++;
     }
     return contient;
-}
-
-
-List newList(){
-    return NULL;
-}
-
-Bool isEmptyList(List l){
-    if(l==NULL){
-        return true;
-    }
-    return false;
-}
-
-int listLength(List l){
-    int size=0;
-    if(!isEmptyList(l)){
-        while(l!=NULL){
-            size++;
-            l=l->suiv;
-        }
-    }
-    return size;
 }
