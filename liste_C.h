@@ -17,12 +17,12 @@ typedef struct maillon {
     int fin;
     char texte[100];
     struct maillon *suiv;
-} Cellule_t, *List;
+} Cellule_t, *List_t;
 
 Cellule_t* creationCellule(int deb, int fin, char *texte);
-void ajoutListe(List *liste, Cellule_t *elt);
-List *rechercherElt(List *liste, int date);
-void suppCell(List* li, Cellule_t* cell);
+void ajoutListe(List_t *liste, Cellule_t *elt);
+List_t *rechercherElt(List_t *liste, int date);
+void suppCell(List_t* li, Cellule_t* cell);
 
 
 #endif /* liste_C.h */

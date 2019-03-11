@@ -10,16 +10,15 @@
 typedef enum{
     true,
     false
-} Bool;
+} Boolean_t;
 
-List chargeList(List li, const char* fichier);
-void affichage(List l);// pour le débuggage
+List_t chargeList(List_t li, const char* fichier);
+void affichage(List_t l);// pour le débuggage
 int getDate(void);
-void affichageDateDuJour(List l);
-void SuppMessage(List *li);
-void ChangeDate(List *li, int date, int newDate);
-void sauvegarde(List li,const char* fichier);
-void rechercheMotif(List li, char* motif);
-Bool compare(char *s1,char *s2);
-
+void affichageDateDuJour(List_t l);
+void SuppMessage(List_t *li);
+void ChangeDate(List_t *li, int date, int NewDate);
+void sauvegarde(List_t li,const char* fichier);
+void rechercheMotif(List_t li, char* motif);
+Boolean_t compare(char *s1,char *s2);
 #endif

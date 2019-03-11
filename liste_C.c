@@ -8,10 +8,13 @@
 
 #include "liste_C.h"
 
-Cellule_t* creationCellule(int deb, int fin, char *texte){
-    Cellule_t *nouv;
+Cellule_t* creationCellule(int deb, int fin, char *texte)
+{
+    Cellule_t *nouv=NULL;
+    
     nouv = (Cellule_t*)malloc(sizeof(Cellule_t));
-    if(nouv==NULL){
+    if(nouv==NULL)
+    {
         printf("Problème d'allocation mémoire\n");
         exit(1);
     }
@@ -23,19 +26,19 @@ Cellule_t* creationCellule(int deb, int fin, char *texte){
 }
 
 
-void ajoutListe(List *liste, Cellule_t *elt)
+void ajoutListe(List_t *liste, Cellule_t *elt)
 {
-    List *adr = rechercherElt(liste, elt->deb);
+    List_t *adr = rechercherElt(liste, elt->deb);
     elt->suiv = (*adr);
     (*adr) = elt;
     
 }
 
 
-List *rechercherElt(List *liste, int date)
+List_t *rechercherElt(List_t *liste, int date)
 {
-    Cellule_t *cour = *liste;
-    List *prec = liste;
+    Cellule_t   * cour = *liste;
+    List_t      * prec = liste;
     
     while (cour != NULL && cour->deb < date)
     {
@@ -46,7 +49,7 @@ List *rechercherElt(List *liste, int date)
     return prec;
 }
 
-void suppCell(List* li, Cellule_t* cell){
+void suppCell(List_t* li, Cellule_t* cell){
     *li=cell->suiv;
     free(cell);
 }
