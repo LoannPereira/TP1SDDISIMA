@@ -6,7 +6,15 @@
 //  Copyright © 2019 Pereira Loann. All rights reserved.
 //
 
+
 #include "liste_C.h"
+
+/*
+ * Module liste_C : contient toutes les fonctions nécessaires pour gérer une
+liste chainée (création de cellule, recherche du précédent, insertion d’une cellule, suppression d'une cellule)
+ * 
+ * / 
+
 
 /* creationCellule : Créer un bloc contenant la date de début de validité du message, la date de fin, le texte du message
  * 
