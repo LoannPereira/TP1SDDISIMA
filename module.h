@@ -22,7 +22,7 @@ typedef struct maillon {
 
 
 
-List chargeList(List li);
+List chargeList(List li, const char* fichier);
 Cellule_t* creationCellule(int deb, int fin, char *texte);
 void ajoutListe(List *liste, Cellule_t *elt);
 List *rechercherElt(List *liste, int date);
@@ -32,7 +32,7 @@ void affichageDateDuJour(List l);
 void SuppMessage(List *li);
 void suppCell(List* li, Cellule_t* cell);
 void ChangeDate(List *li, int date, int newDate);
-void sauvegarde(List li);
+void sauvegarde(List li,const char* fichier);
 void rechercheMotif(List li, char* motif);
 Bool compare(char *s1,char *s2);
 

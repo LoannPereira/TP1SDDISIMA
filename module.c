@@ -1,11 +1,11 @@
 #include "module.h"
 
-List chargeList(List li){
+List chargeList(List li,const char* fichier){
     FILE *flot;
     int deb, fin;
     Cellule_t *mess;
     char texte[100];
-    flot = fopen(FICHIER, "r");
+    flot = fopen(fichier, "r");
     if (!flot){
         printf("Erreur lors de l'ouverture du fichier\n");
         exit(1);
@@ -144,10 +144,10 @@ void ChangeDate(List *li, int date, int newDate){
     }
 }
 
-void sauvegarde(List li){
+void sauvegarde(List li,const char* fichier){
     List tmp = li;
     FILE* monfic = NULL;
-    monfic = fopen(FICHIER, "w");
+    monfic = fopen(fichier, "w");
     if(monfic==NULL){
         printf("\n!!!!!problème d'ouverture du fichier!!!!!\n\n");
         exit(1);

@@ -10,9 +10,10 @@
 
 
 
-int main(void){
+int main(int argc, char **argv){
+    const char* fichier = argv[1];
     List li = NULL;
-    li=chargeList(li);
+    li=chargeList(li, fichier);
     affichage(li);
     ChangeDate(&li, 20170403, 20200101);
     printf("---------------\n");
