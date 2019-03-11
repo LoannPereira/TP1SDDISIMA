@@ -1,3 +1,6 @@
+#ifndef MODULE
+#define MODULE
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -32,3 +35,5 @@ void ChangeDate(List *li, int date, int newDate);
 void sauvegarde(List li);
 void rechercheMotif(List li, char* motif);
 Bool compare(char *s1,char *s2);
+
+#endif
