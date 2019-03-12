@@ -24,7 +24,7 @@ List_t chargeList(List_t li,const char* fichier)
     flot = fopen(fichier, "r");
     if (!flot)                         /* permet de vérifier si le fichier c'est bien ouver*/
     {
-        printf("Problème d'ouverture du fichier");
+        printf("Problème d'ouverture du fichier\n");
         exit(0);
     }
         fscanf(flot, "%d %d%*c", &deb, &fin); /* on lit la première ligne du fichier*/
@@ -50,20 +50,17 @@ List_t chargeList(List_t li,const char* fichier)
 /* -------------------------------------------------------------------- */
 void affichage(List_t l)
 {
-	int i=1;
     if(l!=NULL)          /* si la liste donnée n'est pas vide*/
     {
         while(l != NULL) /*tant qu'il y a un message */
         {
             printf("%d %d  %s\n", l->deb, l->fin, l->texte);
             l = l->suiv;
-            i++;
         }
-        printf("%d\n",i);
     }
     else
     {
-        printf("La liste est vide\t RIEN A AFFICHER!!\n");
+        printf("\tLa liste est vide\t RIEN A AFFICHER!!\n");
     }
 }
 
@@ -91,22 +88,21 @@ int getDate(void)
 /*                                                                      */
 /* En entrée: li liste  de message                                      */
 /*--------------------------------------------------------------------- */
-void affichageDateDuJour(List_t l)
+int affichageDateDuJour(List_t l)
 {
     List_t tmp=l;                   /*pointeur temporaire pour parcourir la liste*/
-    
-    if(tmp!=NULL)
+    int retour=0;                   /*si = 0 problème d'exécution de la fcontion*/
+    while(tmp != NULL)          /*tant qu'il y a un message */
     {
-        printf("Message(s) NON expiré(s):\n");
-        while(tmp != NULL)          /*tant qu'il y a un message */
+        if(tmp->fin>=getDate()) /* si la date de fin du message est supérieure à la date sytème*/
         {
-            if(tmp->fin>=getDate()) /* si la date de fin du message est supérieure à la date sytème*/
-            {
-                printf("Date d'émission: %d \t Message: %s\n",tmp->deb,tmp->texte); /*on affiche le message*/
-            }
-            tmp = tmp->suiv;        /* on passe au message suivant*/
+            printf("Date d'émission: %d \t Message: %s\n",tmp->deb,tmp->texte); /*on affiche le message*/
+            retour = 1;         /*indique qu'il y a bien des message affichés même si cela est fait autant de fois qu'il y aura de message à afficher on a pas le choix*/
         }
+        tmp = tmp->suiv;        /* on passe au message suivant*/
+        
     }
+    return retour;
 }
 
 /* -------------------------------------------------------------------- */
@@ -177,23 +173,28 @@ void ChangeDate(List_t *li, int date, int NewDate)
 /*             fichier: char de caractère comportant le nom du fichier   */
 /*--------------------------------------------------------------------- */
 
-void sauvegarde(List_t li,const char* fichier)
+int sauvegarde(List_t li,const char* fichier)
 {
     List_t    tmp = li;             /*pointeur temporaire sur Cellule_t*/
     FILE    * MonFic = NULL;        /*pointeur de flux pour ouvrir le fichier*/
-    
-    MonFic = fopen(fichier, "w");
-    if(MonFic==NULL)                /*On vérifie si l'ouverture en écriture du fichier se passe mal*/
+    int       retour = 0;
+    if(tmp!=NULL)
     {
-        printf("Problème d'ouverture du fichier");
-        exit(0);                    /*on quitte le programme si oui*/
+        MonFic = fopen(fichier, "w");
+        if(MonFic==NULL)                /*On vérifie si l'ouverture en écriture du fichier se passe mal*/
+        {
+            printf("Problème d'ouverture du fichier");
+            exit(0);                    /*on quitte le programme si oui*/
+        }
+        while(tmp!=NULL)
+        {
+            fprintf(MonFic, "%d %d %s\n",tmp->deb,tmp->fin,tmp->texte); /*on écrit dans le fichier*/
+            tmp=tmp->suiv;
+        }
+        fclose(MonFic);/*on ferme le flot*/
+        retour =1;     /*tout c'est bien passé*/
     }
-    while(tmp!=NULL)
-    {
-        fprintf(MonFic, "%d %d %s\n",tmp->deb,tmp->fin,tmp->texte); /*on écrit dans le fichier*/
-        tmp=tmp->suiv;
-    }
-    fclose(MonFic);/*on ferme le flot*/
+    return retour;
 }
 
 /* -------------------------------------------------------------------- */
@@ -205,22 +206,22 @@ void sauvegarde(List_t li,const char* fichier)
 /*             à trouver.                                               */
 /*--------------------------------------------------------------------- */
 
-void rechercheMotif(List_t li, char* motif)
+int rechercheMotif(List_t li, char* motif)
 {
     List_t tmp = li; /*pointeur temporaire sur Cellule_t*/
+    int retour = 0;
     
-    if(tmp!=NULL)
+    while(tmp!=NULL)
     {
-        printf("Message contenant: %s:\n",motif);
-        while(tmp!=NULL)
+        if(compare(tmp->texte, motif)==true) /*si la fonction compare indique que le message courant contient le motif*/
         {
-            if(compare(tmp->texte, motif)==true) /*i la fonction compare indique que le message courant contient le motif*/
-            {
-                printf("Date d'émission: %d  Date d'expiration: %d  Message:%s\n",tmp->deb,tmp->fin,tmp->texte);
-            }
-            tmp=tmp->suiv;
+            printf("\tDeb: %d  Fin: %d  Message:%s\n",tmp->deb,tmp->fin,tmp->texte);
+            retour = 1;
         }
+        tmp=tmp->suiv;
     }
+    
+    return retour;
 }
 
 /* -------------------------------------------------------------------- */

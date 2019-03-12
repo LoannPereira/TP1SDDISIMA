@@ -1,0 +1,8 @@
+20190823 20190923 ceci est un beau texte
+20210517 20210617 oui ça va très bien et toi ?
+20200106 20200206 tu vas bien ?
+20200403 20200703 ok c'est cool 1
+20200403 20190703 ok c'est cool 2
+20200403 20190703 ok c'est cool 3
+20200306 20200407 tu fais quoi aujourd'hui ?
+20200223 20200402 Je fais un gâteau
