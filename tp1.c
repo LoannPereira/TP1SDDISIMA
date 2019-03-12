@@ -38,6 +38,7 @@ List_t chargeList(List_t li,const char* fichier)
             fgets(texte, 100, flot);
             texte[strlen(texte) - 1] = 0;
         }
+        fclose(flot);
     return li;
 }
 

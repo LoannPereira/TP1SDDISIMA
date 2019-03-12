@@ -123,5 +123,6 @@ void  supprimmerListe(List_t l)
        // tmp=tmp->suiv;
  /*on libère un par un les cellules de la liste*/
     }
+
     //free(l); /*on finit par libérer le pointeur de tête*/
 }
