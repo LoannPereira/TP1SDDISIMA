@@ -20,11 +20,11 @@ int main(int argc, char **argv){
         /*                            !!! /TEST\ !!!                                  */
         /*____________________________________________________________________________*/
         const char* fichier = argv[1];
-        const char* fichierVide="/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/chargeVide.txt";
-        const char* fichierUneLigne="/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/chargeUneLigne.txt";
-        const char* fichierMessPerim="/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/chargeMessPerim.txt";
-        const char* fichierTousOk="/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/chargeTousOk.txt";
-        const char* fichierSauv="/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/sauve.txt";
+        const char* fichierVide="./chargeVide.txt";
+        const char* fichierUneLigne="./chargeUneLigne.txt";
+        const char* fichierMessPerim="./chargeMessPerim.txt";
+        const char* fichierTousOk="./chargeTousOk.txt";
+        const char* fichierSauv="./sauve.txt";
         
         List_t li = NULL;
         List_t LiVide = NULL;
@@ -54,7 +54,8 @@ int main(int argc, char **argv){
         printf("Affichage CAS 4 après le chargement du fichier vide en mémoire\n\n");
         affichage(LiUneLigne);
         printf("*---------------------------------------------*\n");
-        
+	supprimmerListe(LiUneLigne);        
+
         /*-------------------------------------------------------------*/
         /*                   Tests AffichageDateJour                    */
         /*Hypothèse de départ: Les dates sont sous le bon format       */
@@ -76,6 +77,7 @@ int main(int argc, char **argv){
         if(!affichageDateDuJour(LiTest))
             printf("\tLa liste de message est vide, donc aucun message ne peut être affiché\n");
         printf("*---------------------------------------------*\n");
+
         /*Cas 4: si tous les messages ne sont pas périmés*/
         printf("Affichage CAS 4 AffichageDateJour\n\n");
         LiTest = chargeList(LiTest, fichierTousOk);/*On charge le fichier avec les messages non périmés*/
@@ -120,7 +122,7 @@ int main(int argc, char **argv){
         LiTest = chargeList(LiTest, fichierMessPerim);
         SuppMessage(&LiTest);
         affichage(LiTest);  /*affiche rien car tous obsolètes*/
-        supprimmerListe(LiTest);
+        
         printf("*---------------------------------------------*\n");
         /*Cas 3: tout les messages sont à jour*/
         printf("Affichage CAS 3 SuppmMessage\n");
