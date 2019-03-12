@@ -11,29 +11,30 @@
 
 //if(1)--> execute le code
 int main(int argc, char **argv){
-//    int retour=0;
-//    if(argc==2){
-//        //const char* fichier = argv[1];
-//        const char* fichier = "/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/sauve.txt";
-//        List li = NULL;
-//        li=chargeList(li, fichier);
-//        affichage(li);
-//        ChangeDate(&li, 20170403, 20200101);
-//        printf("---------------\n");
-//        affichage(li);
-//        retour=0;
-//    }
-//    else{
-//        printf("Veuillez renseigner l'adresse du fichier en ligne de commande \n");
-//        retour=1;
-//    }
-//    return retour;
-    const char* fichier = "/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/sauve.txt";
-    List_t li = NULL;
-    li=chargeList(li, fichier);
-    affichage(li);
-    ChangeDate(&li, 20170403, 20200101);
+    int retour=0;
+    if(argc==2){
+        const char* fichier = argv[1];
+        /*const char* fichier = "/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/sauve.txt";*/
+        List_t li = NULL;
+        li=chargeList(li, fichier);
+        affichage(li);
+        ChangeDate(&li, 20170403, 20200101);
         printf("---------------\n");
         affichage(li);
+        retour=0;
+        supprimmerListe(li);
+    }
+    else{
+        printf("Veuillez renseigner l'adresse du fichier en ligne de commande \n");
+        retour=1;
+    }
+    return retour;
+    //~ const char* fichier = "/Users/pereiraloann/desktop/TP_SDD/TP1/TP1/sauve.txt";
+    //~ List_t li = NULL;
+    //~ li=chargeList(li, fichier);
+    //~ affichage(li);
+    //~ ChangeDate(&li, 20170403, 20200101);
+        //~ printf("---------------\n");
+        //~ affichage(li);
     return 0;
 }

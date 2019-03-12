@@ -115,13 +115,13 @@ void suppCell(List_t* li, Cellule_t* cell){
 /*--------------------------------------------------------------------- */
 void  supprimmerListe(List_t l)
 {
-    List_t  tmp=NULL;/*on créer un pointeur temporaire permettant de libérer les cellules sans touché au pointeur de tête de la liste*/
+    List_t  tmp=l;/*on crée un pointeur temporaire permettant de libérer les cellules sans touché au pointeur de tête de la liste*/
     
-    while(l!=NULL)/*tant que la liste n'est pas vide*/
+    while(tmp!=NULL)/*tant que la liste n'est pas vide*/
     {
-        tmp=l;
-        l=l->suiv;
-        free(tmp);  /*on libère un part un les cellules de la liste*/
+        suppCell(&tmp,tmp);
+       // tmp=tmp->suiv;
+ /*on libère un par un les cellules de la liste*/
     }
-    free(l); /*on finit par libérer le pointeur de tête*/
+    //free(l); /*on finit par libérer le pointeur de tête*/
 }
