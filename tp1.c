@@ -10,7 +10,7 @@
 /*                                                                      */
 /* En entrée: li: liste vide de message                                  */
 /*            fichier: char de caractère comportant le nom du fichier    */
-/* En sortie: li: la liste ainsi chargé                                  */
+/* En sortie: li: la liste ainsi chargée                                  */
 /* -------------------------------------------------------------------- */
 
 List_t chargeList(List_t li,const char* fichier)
@@ -30,10 +30,10 @@ List_t chargeList(List_t li,const char* fichier)
         fscanf(flot, "%d %d%*c", &deb, &fin); /* on lit la première ligne du fichier*/
         fgets(texte, 100, flot);
         texte[strlen(texte) - 1] = 0; /*on ajoute \0 à la fin de la chaîne de caractère*/
-        while (!feof(flot))           /* s'il y a une ligne supplémentaire on continu la lecture*/
+        while (!feof(flot))           /* s'il y a une ligne supplémentaire on continue la lecture*/
         {
             mess = (Cellule_t *)malloc(sizeof(Cellule_t));
-            if (!mess)                /* on vérifi si l'allocation c'est mal passé*/
+            if (!mess)                /* on vérifie si l'allocation s'est mal passé*/
             {
                 printf("Erreur lors de l'allocation mémoire !\n");
                 exit(1);              /*si oui on quitte le programme*/
@@ -42,7 +42,7 @@ List_t chargeList(List_t li,const char* fichier)
             mess->fin = fin;
             strcpy(mess->texte, texte);
             mess->suiv = NULL;
-            
+            // !! utiliser la fonction creationCell !!
             ajoutListe(&li, mess);    /* ajout du nouveau message récupérer dans la liste*/
             fscanf(flot, "%d %d%*c", &deb, &fin); /* lecture de la ligne suivante*/
             fgets(texte, 100, flot);
@@ -81,7 +81,7 @@ void affichage(List_t l)
 /*                                                                      */
 /* En sortie: la date système dans un int sous la forme suivante        */
 /*            aaaammjj                                                  */
-/*Utilisation de  la structure time_t qui permet grâce à ces fonction   */
+/*Utilisation de  la structure time_t qui permet grâce à ses fonctions   */
 /*associés de récupérer le nombre d'année écoulées depuis 1900 (tm_year)*/
 /*l'indice du mois (tm_mon) de 0 à 11 et l'indice du jour (tm_mday)     */
 /* -------------------------------------------------------------------- */
@@ -96,7 +96,7 @@ int getDate(void)
 }
 
 /* -------------------------------------------------------------------- */
-/* affichageDateJour   Permet d'afficher que les messages non périmés   */
+/* affichageDateJour   Permet d'afficher les messages encore valides    */
 /*                                                                      */
 /* En entrée: li liste  de message                                      */
 /*--------------------------------------------------------------------- */
@@ -109,7 +109,7 @@ void affichageDateDuJour(List_t l)
         printf("Message(s) NON expiré(s):\n");
         while(tmp != NULL)          /*tant qu'il y a un message */
         {
-            if(tmp->fin>=getDate()) /* si la date de fin du message et supérieur à la date sytème*/
+            if(tmp->fin>=getDate()) /* si la date de fin du message est supérieure à la date sytème*/
             {
                 printf("Date d'émission: %d \t Message: %s\n",tmp->deb,tmp->texte); /*on affiche le message*/
             }
@@ -119,9 +119,9 @@ void affichageDateDuJour(List_t l)
 }
 
 /* -------------------------------------------------------------------- */
-/* SuppMessage     Permet supprimer les messages devenus obsolètes      */
+/* SuppMessage     Permet de supprimer les messages devenus obsolètes   */
 /*                                                                      */
-/* En entrée: *li: un pointeur sur la liste  de message                  */
+/* En entrée: *li: un pointeur sur la liste  de message                 */
 /*--------------------------------------------------------------------- */
 
 void SuppMessage(List_t *li)
@@ -131,7 +131,7 @@ void SuppMessage(List_t *li)
     
     while(curr!=NULL)           /* parcours de la liste de message*/
     {
-        if(curr->fin<getDate()) /*si la date de fin du message pointé est inférieur à la date système*/
+        if(curr->fin<getDate()) /*si la date de fin du message pointé est inférieure à la date système*/
         {
             suppCell(tmp,curr); /*on supprime le message de la liste*/
         }
@@ -257,7 +257,7 @@ Boolean_t compare(char *s1,char *s2)
                 stop=true;      /*on doit arrêter la boucle whiles*/
             }
             if(s1[i+1]!=s2[j+1])/*si au prochain caractère du motif et de s1 il y a une différence*/
-                j=0;  /*on repace l'induce de caractère au début du motif car on doit éxaminer l'égalité avec le reste de s1*/
+                j=0;  /*on replace l'indice de caractère au début du motif car on doit éxaminer l'égalité avec le reste de s1*/
             else j++; /*on passe au caractère suivant de s2 (motif) si il y a égalité des caractères*/
         }
         i++;                    /*dans tout les cas on passe au caractère suivant de s1*/
