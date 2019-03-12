@@ -10,7 +10,8 @@
 #include "liste_C.h"
 
 /*
- * Module liste_C : contient toutes les fonctions nécessaires pour gérer une
+ * Modu
+ le liste_C : contient toutes les fonctions nécessaires pour gérer une
 liste chainée (création de cellule, recherche du précédent, insertion d’une cellule, suppression d'une cellule)
  * 
  * / 
@@ -104,4 +105,23 @@ List_t *rechercherElt(List_t *liste, int date)
 void suppCell(List_t* li, Cellule_t* cell){
     *li=cell->suiv; /* déplacer le pointeur de tête de liste */
     free(cell); /* libérer le bloc cell */
+}
+
+
+/* -------------------------------------------------------------------- */
+/* supprimmerListe     Permet de libérer la mémoire                     */
+/*                                                                      */
+/* En entrée: l: la liste des message                                   */
+/*--------------------------------------------------------------------- */
+void  supprimmerListe(List_t l)
+{
+    List_t  tmp=NULL;/*on créer un pointeur temporaire permettant de libérer les cellules sans touché au pointeur de tête de la liste*/
+    
+    while(l!=NULL)/*tant que la liste n'est pas vide*/
+    {
+        tmp=l;
+        l=l->suiv;
+        free(tmp);  /*on libère un part un les cellules de la liste*/
+    }
+    free(l); /*on finit par libérer le pointeur de tête*/
 }

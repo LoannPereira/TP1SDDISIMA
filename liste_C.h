@@ -23,6 +23,6 @@ Cellule_t* creationCellule(int deb, int fin, char *texte);
 void ajoutListe(List_t *liste, Cellule_t *elt);
 List_t *rechercherElt(List_t *liste, int date);
 void suppCell(List_t* li, Cellule_t* cell);
-
+void supprimmerListe(List_t l);
 
 #endif /* liste_C.h */
