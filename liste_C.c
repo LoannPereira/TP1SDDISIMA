@@ -9,24 +9,28 @@
 
 #include "liste_C.h"
 
-/*
- * Modu
- le liste_C : contient toutes les fonctions nécessaires pour gérer une
-liste chainée (création de cellule, recherche du précédent, insertion d’une cellule, suppression d'une cellule)
- * 
- * / 
+/* --------------------------------------------------------------------------------------------------------------- */ 
+/* --------------------------------------------------------------------------------------------------------------- */  
+/* Module liste_C : contient toutes les fonctions nécessaires pour gérer une                                       */
+/* liste chainée (création de cellule, recherche du précédent, insertion d’une cellule, suppression d'une cellule) */
+/*                                                                                                                 */ 
+/* --------------------------------------------------------------------------------------------------------------- */ 
+/* --------------------------------------------------------------------------------------------------------------- */ 
 
 
-/* creationCellule : Créer un bloc contenant la date de début de validité du message, la date de fin, le texte du message
- * 
- * Entrée :
- * 	deb = entier correspondant à la date de début de validité du message
- * 	fin = entier correspondant à la fin de validité du message
- * 
- * Sortie :
- * 	nouv = pointeur sur la cellule créée
- * 
- */
+
+/* ---------------------------------------------------------------------------------- */
+/* creationCellule : Créer un bloc contenant la date de début de validité du message, */ 
+/*      la date de fin, le texte du message                                           */
+/*                                                                                    */ 
+/* Entrée :                                                                           */
+/* 	deb = entier correspondant à la date de début de validité du message          */
+/* 	fin = entier correspondant à la fin de validité du message                    */
+/*                                                                                    */  
+/* Sortie :                                                                           */
+/* 	nouv = pointeur sur la cellule créée                                          */
+/*                                                                                    */ 
+/* ---------------------------------------------------------------------------------- */ 
 
 Cellule_t* creationCellule(int deb, int fin, char *texte)
 {
@@ -47,16 +51,19 @@ Cellule_t* creationCellule(int deb, int fin, char *texte)
     return nouv;
 }
 
-/* ajoutListe : insertion du message nouveau dans la liste chainée au bon endroit.
- * 
- * Entrée :
- * 	liste = pointeur sur la tête de la liste
- * 	elt = pointeur sur la cellule à insérer
- * 
- * Sortie :
- * 	rien
- * 
- */
+
+
+/* ------------------------------------------------------------------------------- */ 
+/* ajoutListe : insertion du message nouveau dans la liste chainée au bon endroit. */
+/*                                                                                 */
+/* Entrée :                                                                        */
+/* 	liste = pointeur sur la tête de la liste                                   */
+/* 	elt = pointeur sur la cellule à insérer                                    */
+/*                                                                                 */
+/* Sortie :                                                                        */
+/* 	rien                                                                       */
+/*                                                                                 */
+/* ------------------------------------------------------------------------------- */ 
 
 void ajoutListe(List_t *liste, Cellule_t *elt)
 {
@@ -66,16 +73,18 @@ void ajoutListe(List_t *liste, Cellule_t *elt)
     
 }
 
-/* rechercherElt : recherche selon la date de début, l’emplacement du nouveau message dans la liste chainée.
- * 
- * Entrée :
- * 	liste = pointeur sur la tête de la liste chaînée
- * 	date = entier correspondant à la date de début de validité du message
- * 	 
- * Sortie :
- * 	prec = pointeur sur la cellule après laquelle doit être inséré le message de cette date
- *  
- */
+
+/* --------------------------------------------------------------------------------------------------------- */ 
+/* rechercherElt : recherche selon la date de début, l’emplacement du nouveau message dans la liste chainée. */
+/*                                                                                                           */ 
+/* Entrée :                                                                                                  */
+/* 	liste = pointeur sur la tête de la liste chaînée                                                     */
+/* 	date = entier correspondant à la date de début de validité du message                                */
+/*                                                                                                           */ 
+/* Sortie :                                                                                                  */
+/* 	prec = pointeur sur la cellule après laquelle doit être inséré le message de cette date              */
+/*                                                                                                           */   
+/* --------------------------------------------------------------------------------------------------------- */ 
 
 List_t *rechercherElt(List_t *liste, int date)
 {
@@ -91,16 +100,19 @@ List_t *rechercherElt(List_t *liste, int date)
     return prec;
 }
 
-/* suppListe : suppression de la cellule donnée en entrée
- * 
- * Entrée :
- * 	li = pointeur sur la tête de la liste
- * 	cell = pointeur sur la cellule à supprimer
- * 
- * Sortie :
- * 	rien
- * 
- */
+
+
+/* ------------------------------------------------------ */ 
+/* suppCelle : suppression de la cellule donnée en entrée */
+/*                                                        */ 
+/* Entrée :                                               */
+/* 	li = pointeur sur la tête de la liste             */
+/* 	cell = pointeur sur la cellule à supprimer        */
+/*                                                        */ 
+/* Sortie :                                               */
+/* 	rien                                              */
+/*                                                        */ 
+/* ------------------------------------------------------ */ 
 
 void suppCell(List_t* li, Cellule_t* cell){
     *li=cell->suiv; /* déplacer le pointeur de tête de liste */
@@ -108,21 +120,19 @@ void suppCell(List_t* li, Cellule_t* cell){
 }
 
 
+
 /* -------------------------------------------------------------------- */
 /* supprimmerListe     Permet de libérer la mémoire                     */
 /*                                                                      */
 /* En entrée: l: la liste des message                                   */
 /*--------------------------------------------------------------------- */
+
 void  supprimmerListe(List_t l)
 {
     List_t  tmp=l;/*on crée un pointeur temporaire permettant de libérer les cellules sans touché au pointeur de tête de la liste*/
     
     while(tmp!=NULL)/*tant que la liste n'est pas vide*/
     {
-        suppCell(&tmp,tmp);
-       // tmp=tmp->suiv;
- /*on libère un par un les cellules de la liste*/
+        suppCell(&tmp,tmp); /*on libère un par un les cellules de la liste*/
     }
-
-    //free(l); /*on finit par libérer le pointeur de tête*/
 }
