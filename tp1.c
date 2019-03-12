@@ -32,17 +32,7 @@ List_t chargeList(List_t li,const char* fichier)
         texte[strlen(texte) - 1] = 0; /*on ajoute \0 à la fin de la chaîne de caractère*/
         while (!feof(flot))           /* s'il y a une ligne supplémentaire on continue la lecture*/
         {
-            mess = (Cellule_t *)malloc(sizeof(Cellule_t));
-            if (!mess)                /* on vérifie si l'allocation s'est mal passé*/
-            {
-                printf("Erreur lors de l'allocation mémoire !\n");
-                exit(1);              /*si oui on quitte le programme*/
-            }
-            mess->deb = deb;
-            mess->fin = fin;
-            strcpy(mess->texte, texte);
-            mess->suiv = NULL;
-            // !! utiliser la fonction creationCell !!
+            mess=creationCellule(deb, fin, texte);
             ajoutListe(&li, mess);    /* ajout du nouveau message récupérer dans la liste*/
             fscanf(flot, "%d %d%*c", &deb, &fin); /* lecture de la ligne suivante*/
             fgets(texte, 100, flot);
