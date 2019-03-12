@@ -1,5 +1,9 @@
 #include "tp1.h"
 
+/* Module tp1:                                                                   */
+/* contient l'ensemble des fonctions permettant de gérer les messages en mémoire */
+
+
 
 /* -------------------------------------------------------------------- */
 /* ChargeList   Permet de mettre en mémoire les messages du fichier     */
@@ -188,7 +192,7 @@ void sauvegarde(List_t li,const char* fichier)
     FILE    * MonFic = NULL;        /*pointeur de flux pour ouvrir le fichier*/
     
     MonFic = fopen(fichier, "w");
-    if(MonFic==NULL)                /*On vérifie si l'ouverture en écriture du fichier ce passe mal*/
+    if(MonFic==NULL)                /*On vérifie si l'ouverture en écriture du fichier se passe mal*/
     {
         printf("Problème d'ouverture du fichier");
         exit(0);                    /*on quitte le programme si oui*/
